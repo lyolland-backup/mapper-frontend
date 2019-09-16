@@ -1,11 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./App.css";
 import FormContainer from "./components/FormContainer";
 
 import L from "leaflet";
 import Joi from "joi";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
-import { Card, CardTitle, Spinner, Alert } from "reactstrap";
+import { Card, Spinner, Alert } from "reactstrap";
+import WorldMap from "./components/WorldMap";
+import MessageConfirmation from "./components/MessageConfirmation";
 
 const currentLocation = L.icon({
   iconUrl: require("leaflet/dist/images/marker-icon.png"),
@@ -36,7 +38,7 @@ const schema = Joi.object().keys({
 const API_URL =
   window.location.hostname === "localhost"
     ? "http://localhost:5000/api/v1/messages"
-    : "production-url";
+    : "https://lit-earth-16997.herokuapp.com/api/v1/messages";
 
 class App extends Component {
   state = {
@@ -169,8 +171,6 @@ class App extends Component {
           ))}
         </Map>
         <Card body className="message-form">
-          <CardTitle>Your Location</CardTitle>
-
           {!this.state.sendingMessage &&
           !this.state.sentMessage &&
           this.state.haveUsersLocation ? (
@@ -182,9 +182,7 @@ class App extends Component {
           ) : this.state.sendingMessage || !this.state.haveUsersLocation ? (
             <Spinner color="primary" />
           ) : (
-            <Alert color="success">
-              Message Sent!<span>✉️</span>
-            </Alert>
+            <MessageConfirmation />
           )}
         </Card>
       </div>

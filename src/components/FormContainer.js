@@ -24,7 +24,6 @@ class FormContainer extends Component {
         </FormGroup>
         <Button
           color={!this.props.validateFormInput() ? "secondary" : "success"}
-        //   color="success"
           type="submit"
           disabled={!this.props.validateFormInput()}
         >
