@@ -141,6 +141,14 @@ class App extends Component {
     });
   };
 
+  resetForm = () => {
+    setTimeout(() => {
+      this.setState({
+        sentMessage: false
+      });
+    }, 1500);
+  };
+
   render() {
     const position = [this.state.location.lat, this.state.location.lng];
     return (
@@ -182,7 +190,7 @@ class App extends Component {
           ) : this.state.sendingMessage || !this.state.haveUsersLocation ? (
             <Spinner color="primary" />
           ) : (
-            <MessageConfirmation />
+            <MessageConfirmation resetForm={this.resetForm()} />
           )}
         </Card>
       </div>
